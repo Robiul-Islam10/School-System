@@ -1,0 +1,63 @@
+<?php
+	
+	session_start();
+	include('../database/db.php');
+	
+	if(isset($_SESSION['name'])){
+		  
+
+	
+	$key=$_POST['key'];
+	//echo $key ;
+
+	$conn = getConnection();
+	if($key=="Student")
+	{
+		$sql = "select sid from student";
+	}
+	else if ($key == "Teachers")
+	{
+		$sql = "select tid from teacher";
+	}
+	//$sql = "select tid from teacher where subject='{$key}'";
+	$result = mysqli_query($conn, $sql);
+	$i=0;
+	$n=0;
+	$data ="";
+	while($row = mysqli_fetch_assoc($result)){
+	
+		
+		
+		//$data .= "<div>".$row['bookname']."</div>";
+		//$data .= "<div>".$row['tid']."</div>";
+		
+		if($key=="Student")
+	{
+		$data .= "<div>".$row['sid']."</div>";
+	}
+	else if ($key == "Teachers")
+	{
+		$data .= "<div>".$row['tid']."</div>";
+	}
+		
+		/*$data .= "<div>".?><tr>
+						<td align="center"><div id="d1"><input type="checkbox" name="{$i}" value="{$row['sid']}"><?php echo $row['sid'] ;?><br></div></td>
+								
+					</tr><?php."</div>";*/
+		//$i++;
+		//echo $row['sid'];
+	}
+	
+	
+	echo $data;
+	
+	} 
+	
+    else
+{
+	header("location: login.php");
+	
+}
+
+?>
+
